@@ -23,3 +23,9 @@ module GolfTest where
 
       it "gives empty list for empty list" $ do
         length (skips []) `shouldBe` 0
+
+    describe "localMaxima" $ do
+      it "should create the list of maximu from a given list" $ do
+        localMaxima [2,9,5,6,1] `shouldBe` [9,6]
+        localMaxima [2,3,4,1,5] `shouldBe` [4]
+        localMaxima [1,2,3,4,5] `shouldBe` []
