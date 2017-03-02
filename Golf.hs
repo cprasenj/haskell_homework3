@@ -11,12 +11,12 @@ skips list = map (findEveryNth list) [1..(length list)]
 lookUpLocalMaxima :: [Integer] -> [Integer] -> [Integer]
 lookUpLocalMaxima list result
   | (<) (length list) 3 = result
-  | otherwise = if and [((>) second first), ((>) second third)]
-                then lookUpLocalMaxima (tail list) (result ++ [second])
-                else lookUpLocalMaxima (tail list) result
+  | and $ [(>)] <*> [second] <*> [first, third] = lookUpLocalMaxima rest $ result ++ [second]
+  | otherwise = lookUpLocalMaxima rest result
   where first = head list
         second = head . (drop 1) $ list
         third = head . (drop 2) $ list
+        rest = tail list
 
 localMaxima :: [Integer] -> [Integer]
 localMaxima list = lookUpLocalMaxima list []
