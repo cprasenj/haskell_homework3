@@ -13,4 +13,4 @@ createFrames list frameSize
   | otherwise = take (fromIntegral frameSize) list : createFrames (tail list) frameSize
 
 localMaxima :: [Integer] -> [Integer]
-localMaxima list = foldl (\x y -> if and $ [(>)] <*> [(!!) y 1] <*> [head y, last y] then x ++ [(!!) y 1] else x) [] $ createFrames list 3
+localMaxima list = foldl (\x y -> let second = (!!) y 1 in if and $ [(>)] <*> [second] <*> [head y, last y] then x ++ [second] else x) [] $ createFrames list 3
