@@ -8,15 +8,10 @@ findEveryNth list n = map head $ (chunksOf n) $ drop (pred n) list
 skips :: [a] -> [[a]]
 skips list = map (findEveryNth list) [1..(length list)]
 
-lookUpLocalMaxima :: [Integer] -> [Integer] -> [Integer]
-lookUpLocalMaxima list result
-  | (<) (length list) 3 = result
-  | and $ [(>)] <*> [second] <*> [first, third] = lookUpLocalMaxima rest $ result ++ [second]
-  | otherwise = lookUpLocalMaxima rest result
-  where first = head list
-        second = head . (drop 1) $ list
-        third = head . (drop 2) $ list
-        rest = tail list
+createFrames :: [Integer] -> Integer -> [[Integer]]
+createFrames list frameSize
+  | (length list) < fromIntegral frameSize  = []
+  | otherwise = take (fromIntegral frameSize) list : createFrames (tail list) frameSize
 
 localMaxima :: [Integer] -> [Integer]
-localMaxima list = lookUpLocalMaxima list []
+localMaxima list = foldl (\x y -> if and $ [(>)] <*> [(!!) y 1] <*> [head y, last y] then x ++ [(!!) y 1] else x) [] $ createFrames list 3
