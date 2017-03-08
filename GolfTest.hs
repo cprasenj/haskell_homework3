@@ -1,17 +1,17 @@
 module GolfTest where
   import Test.Hspec
-  import Test.QuickCheck
-  import Control.Exception (evaluate)
+  import Test.QuickCheck()
+  import Control.Exception(evaluate)
   import Golf
 
   main :: IO ()
   main = hspec $ do
 
     describe "findEveryNth" $ do
-      it "finds every 3th element for a given list" $ do
+      it "finds every 3th element for a given list" $
         findEveryNth [1, 2, 3, 4, 5, 6] 3 `shouldBe` [3, 6]
 
-      it "finds every 2th element for a given list" $ do
+      it "finds every 2th element for a given list" $
         findEveryNth [1, 2, 3, 4, 5, 6] 2 `shouldBe` [2, 4, 6]
 
     describe "skips" $ do
@@ -21,7 +21,7 @@ module GolfTest where
         skips [1] `shouldBe`  [[1]]
         skips [True,False] `shouldBe` [[True,False], [False]]
 
-      it "gives empty list for empty list" $ do
+      it "gives empty list for empty list" $
         length (skips []) `shouldBe` 0
 
     describe "localMaxima" $ do
