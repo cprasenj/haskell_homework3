@@ -1,5 +1,4 @@
 module Golf where
-import Data.List
 import Data.List.Split
 
 findEveryNth :: [a] -> Int -> [a]
